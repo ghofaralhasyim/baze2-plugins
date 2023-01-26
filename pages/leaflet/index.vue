@@ -108,19 +108,12 @@ Icon.Default.mergeOptions({
 							<LTileLayer
 								url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
 							></LTileLayer>
-							<LMarker :lat-lng="[-7.2754438, 112.6426431]" :icon="markerIcon"
+							<LMarker :lat-lng="[-7.2754438, 112.6426431]"
 								><LIcon
 									:icon-size="iconSize"
 									:icon-anchor="iconAnchor"
 									icon-url="assets/img/map-marker.png"
 							/></LMarker>
-							<!-- <LMarkerCluster>
-								<LMarker
-									:lat-lng="[-7.2754438, 112.6426431]"
-									:icon="markerIcon"
-								></LMarker>
-								<LMarker :lat-lng="[-8, 115]" :icon="markerIcon"></LMarker>
-							</LMarkerCluster> -->
 							<LGeoJson :geojson="geojson"></LGeoJson>
 						</LMap>
 					</client-only>
@@ -131,7 +124,7 @@ Icon.Default.mergeOptions({
 &lt;client-only&gt;
 &lt;LMap :zoom=&quot;5&quot; :center=&quot;[-3, 119]&quot;&gt;
   &lt;LTileLayer url=&quot;&quot;&gt;&lt;/LTileLayer&gt;
-	&lt;LMarker :lat-lng=&quot;[-7.2754438, 112.6426431]&quot; :icon=&quot;markerIcon&quot;&gt;
+	&lt;LMarker :lat-lng=&quot;[-7.2754438, 112.6426431]&quot;&gt;
 	   &lt;!-- CUSTOM MARKER --&gt;
 	   &lt;LIcon
 		:icon-size=&quot;iconSize&quot;
@@ -203,19 +196,12 @@ await this.$axios
 				<div class="map-wrapper mt-16 geo-json">
 					<client-only>
 						<LMap :zoom="5" :center="[-3, 119]">
-							<LMarker :lat-lng="[-7.2754438, 112.6426431]" :icon="markerIcon"
+							<LMarker :lat-lng="[-7.2754438, 112.6426431]"
 								><LIcon
 									:icon-size="iconSize"
 									:icon-anchor="iconAnchor"
 									icon-url="assets/img/map-marker.png"
 							/></LMarker>
-							<!-- <LMarkerCluster>
-								<LMarker
-									:lat-lng="[-7.2754438, 112.6426431]"
-									:icon="markerIcon"
-								></LMarker>
-								<LMarker :lat-lng="[-8, 115]" :icon="markerIcon"></LMarker>
-							</LMarkerCluster> -->
 							<LGeoJson :geojson="geojson"></LGeoJson>
 						</LMap>
 					</client-only>
