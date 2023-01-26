@@ -1,8 +1,7 @@
 import defaultMeta from './config/defaultMeta'
-import sitemapConfig from './config/sitemapConfig'
 
 const listENVS = {
-	BASE_URL: process.env.VERCEL_URL || process.env.BASE_URL,
+	BASE_URL: process.env.BASE_URL,
 	API_URL: process.env.API_URL
 }
 /*
@@ -40,6 +39,10 @@ export default {
 		}
 	},
 
+	generate: {
+		fallback: true
+	},
+
 	// Global CSS (https://go.nuxtjs.dev/config-css)
 	css: ['~/assets/scss/main.scss'],
 
@@ -63,10 +66,8 @@ export default {
 		'@nuxtjs/axios',
 		'@nuxtjs/auth',
 		'@nuxtjs/style-resources',
-		['nuxt-lazy-load', { directiveOnly: true }],
-		'@nuxtjs/sitemap'
+		['nuxt-lazy-load', { directiveOnly: true }]
 	],
-	sitemap: sitemapConfig,
 
 	// Axios module configuration (https://go.nuxtjs.dev/config-axios)
 	axios: {
@@ -78,7 +79,7 @@ export default {
 
 	privateRuntimeConfig: {
 		axios: {
-			baseURL: process.env.VERCEL_URL || process.env.BASE_URL
+			baseURL: process.env.BASE_URL
 		}
 	},
 
@@ -89,24 +90,6 @@ export default {
 			changeOrigin: true,
 			onProxyReq(request) {
 				request.setHeader('origin', process.env.API_URL)
-			}
-		}
-	},
-
-	// AUTH
-	auth: {
-		strategies: {
-			local: {
-				endpoints: {
-					login: { url: '/auth/login', method: 'post' },
-					logout: { url: '/auth/logout', method: 'post' }
-					// user: {
-					// 	url: '/current-user/profile',
-					// 	method: 'get',
-					// 	propertyName: false
-					// }
-				},
-				tokenType: 'Bearer'
 			}
 		}
 	},

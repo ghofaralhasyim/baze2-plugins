@@ -3,7 +3,7 @@
 		<button class="btn--ghost-grey nav-toggle" type="button" aria-label="Menu">
 			<span class="bzi-bars bzi-1_2x" aria-hidden="true"></span>
 		</button>
-		<div v-if="!$fetchState.pending" class="nav-container">
+		<div class="nav-container">
 			<headerMainNav :main-nav-data="mainNav" />
 			<headerUserNav />
 		</div>
@@ -18,7 +18,7 @@ export default {
 			mainNav: []
 		}
 	},
-	async fetch() {
+	async created() {
 		await this.$axios
 			.get(`/json/menus.json`)
 			.then(res => {

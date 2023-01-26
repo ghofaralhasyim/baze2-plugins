@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 export default {
-	hostname: process.env.VERCEL_URL || process.env.BASE_URL,
+	hostname: process.env.BASE_URL,
 	gzip: true,
 	defaults: {
 		changefreq: 'daily',
