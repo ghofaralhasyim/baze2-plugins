@@ -2,7 +2,7 @@ import defaultMeta from './config/defaultMeta'
 import sitemapConfig from './config/sitemapConfig'
 
 const listENVS = {
-	BASE_URL: process.env.BASE_URL,
+	BASE_URL: process.env.VERCEL_URL || process.env.BASE_URL,
 	API_URL: process.env.API_URL
 }
 /*
@@ -78,7 +78,7 @@ export default {
 
 	privateRuntimeConfig: {
 		axios: {
-			baseURL: process.env.BASE_URL
+			baseURL: process.env.VERCEL_URL || process.env.BASE_URL
 		}
 	},
 
