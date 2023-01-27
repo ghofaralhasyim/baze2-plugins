@@ -11,6 +11,7 @@
 				<div class="flex flex-row col-gap-12 mb-32 f-14">
 					<span>View other: &nbsp;</span>
 					<nuxt-link to="/leaflet/popup">Custom Popup</nuxt-link>
+					<nuxt-link to="/leaflet/cluster-map">Cluster Maps</nuxt-link>
 				</div>
 				<h5>Installation</h5>
 				<code class="code">npm i vue2-leaflet</code>

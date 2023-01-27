@@ -1,34 +1,26 @@
 <template>
 	<main class="site-main">
-		<div class="container pt-32 pb-64">
+		<section class="container pt-32 pb-64">
 			<h3>LeafletJs Custom Popup</h3>
+
 			<div class="flex flex-row col-gap-12 mb-32 f-14">
 				<span>View other: &nbsp;</span>
 				<nuxt-link to="/leaflet">Custom Maps Style</nuxt-link>
-				<nuxt-link to="/leaflet/cluster-map">Cluster Maps</nuxt-link>
+				<nuxt-link to="/leaflet/popup">Custom Popup</nuxt-link>
 			</div>
-			<h5>Popup Styling</h5>
-			For scoped style component use ::v-deep, or you can add as global style on
-			module scss (without ::v-deep)
-			<pre v-highlightjs class="f-12 code">
-				<code v-pre class="scss">
-                    
-::v-deep .leaflet-popup {
-    //Add your styling here
-	.leaflet-popup-content {
-         //Add your styling here
-	}
-	.leaflet-popup-content-wrapper {
-         //Add your styling here
-	}
+			<p>Here you need additional plugins</p>
+			<code class="code">npm i vue2-leaflet-markercluster</code>
+			<p class="mt-18">Register plugin on leaflet.js</p>
+			<pre v-highlightjs class="code">
+            <code class=" javascript f-12 ">
+import Vue2LeafletMarkerCluster from 'vue2-leaflet-markercluster'
+import 'leaflet.markercluster/dist/MarkerCluster.Default.css'
 
-	.leaflet-popup-tip-container {
-		 //Add your styling here
-	}
-}
-                </code>
+Vue.component('LMarkerCluster', Vue2LeafletMarkerCluster)
+            </code>
             </pre>
-			<div class="map-wrapper relative mt-16 geo-json">
+			<h5 class="mt-18">Example</h5>
+			<div class="map-wrapper relative">
 				<div class="abc">
 					<pre v-highlightjs class="f-12 code">
                 <code v-pre class="javascript vue m-0 p-0">
@@ -72,65 +64,41 @@ data(){
          name: 'Surabaya',
          lat: -7.2754438,
          long: 112.6426431,
-         img_url: 'https://source.unsplash.com/yVwiHXoTrnU'
        },
        {
          name: 'Pemalang',
          lat: -7.0105213,
          long: 109.2523051,
-         img_url: 'https://source.unsplash.com/kleCw7s_t0s'
-       }
+       },
+       {
+          name: 'Malang',
+          lat: -7.9786395,
+          long: 112.5617425
+        }
        ]
     }
 },
 mounted() {
-    for (const item of this.dataLocation) {
-      item.popUpContent = 
-      `&lt;div class="info">&lt;span>${item.name}&lt;/span>&lt;img class="img" src="${item.img_url}" alt="" />&lt;/div>`
+   for (const item of this.dataLocation) {
+     item.popUpContent = `&lt;span>${item.name}&lt;/span>`
     }
-},
+}
 }
 &lt;/script&gt;
 
-&lt;style lang=&quot;scss&quot; scoped&gt;
-::v-deep .leaflet-popup {
-	bottom: auto !important;
-	margin-top: 6px;
-	.leaflet-popup-content {
-		min-width: 120px !important;
-		margin: 0;
-		cursor: pointer;
-		font-size: 1em;
-		background: rgba($color: white, $alpha: 0.7);
-		padding: 2px 8px;
-		border-radius: 4px;
-		display: flex;
-		flex-direction: column;
-
-		.img {
-			width: 100%;
-			max-height: 70px;
-			min-height: 70px;
-			background-color: #b4b2ba;
-			overflow: hidden;
-			object-fit: cover;
-			border-radius: 4px;
-		}
-	}
-	.leaflet-popup-content-wrapper {
-		border-radius: 4px;
-	}
-
-	.leaflet-popup-tip-container {
-		display: none;
-	}
-}
+&lt;style lang=&quot;scss&quot;&gt;
 .map-wrapper {
 	height: 500px;
 	width: 100%;
-	padding: 16px;
-	border-radius: 8px;
-	background-color: #222222;
+}
+::v-deep .marker-cluster,
+.marker-cluster-small {
+	background-color: rgba($color: #ff3333, $alpha: 0.7);
+
+	div {
+		background-image: url('assets/img/mixue.jpg');
+		background-size: cover;
+	}
 }
 &lt;/style&gt;
                 </code>
@@ -141,26 +109,46 @@ mounted() {
 						<LTileLayer
 							url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
 						></LTileLayer>
-						<LMarker
-							v-for="(location, index) in dataLocation"
-							:key="index"
-							:lat-lng="[location.lat, location.long]"
-							@click="changePopUpData(index)"
-						>
-							<LIcon
-								:icon-size="iconSize"
-								:icon-anchor="iconAnchor"
-								icon-url="/assets/img/map-marker.png"
-							/>
-							<LPopup
-								:content="location.popUpContent"
-								:options="{ closeButton: false }"
-							></LPopup>
-						</LMarker>
+						<LMarkerCluster :options="{ maxClusterRadius: 60 }">
+							<LMarker
+								v-for="(location, index) in dataLocation"
+								:key="index"
+								:lat-lng="[location.lat, location.long]"
+							>
+								<LIcon
+									:icon-size="iconSize"
+									:icon-anchor="iconAnchor"
+									icon-url="/assets/img/map-marker.png"
+								/>
+								<LPopup
+									:content="location.popUpContent"
+									:options="{ closeButton: false }"
+								></LPopup>
+							</LMarker>
+						</LMarkerCluster>
 					</LMap>
 				</client-only>
+
+				<h5 class="mt-32">Customize Icon</h5>
+				<p>
+					You can use ::v-deep for scoped style or add style as global style on
+					module scss without ::v-deep
+				</p>
+				<pre v-highlightjs class="f-12 mt-64">
+            <code v-pre class="scss m-0 p-0">
+    ::v-deep .marker-cluster,
+    .marker-cluster-small {
+        background-color: rgba($color: #ff3333, $alpha: 0.7);
+
+        div {
+            background-image: url('assets/img/mixue.jpg');
+            background-size: cover;
+        }
+    }
+                </code>
+                </pre>
 			</div>
-		</div>
+		</section>
 	</main>
 </template>
 
@@ -168,33 +156,30 @@ mounted() {
 export default {
 	data() {
 		return {
-			geojson: null,
 			iconSize: [24, 32],
 			iconAnchor: [16, 35],
 			dataLocation: [
 				{
 					name: 'Surabaya',
 					lat: -7.2754438,
-					long: 112.6426431,
-					img_url: 'https://source.unsplash.com/yVwiHXoTrnU'
+					long: 112.6426431
 				},
 				{
 					name: 'Pemalang',
 					lat: -7.0105213,
-					long: 109.2523051,
-					img_url: 'https://source.unsplash.com/kleCw7s_t0s'
+					long: 109.2523051
+				},
+				{
+					name: 'Malang',
+					lat: -7.9786395,
+					long: 112.5617425
 				}
 			]
 		}
 	},
 	mounted() {
 		for (const item of this.dataLocation) {
-			item.popUpContent = `<div class="info"><span>${item.name}</span><img class="img" src="${item.img_url}" alt="" /></div>`
-		}
-	},
-	methods: {
-		changePopUpData(index) {
-			this.indexDataActive = index
+			item.popUpContent = `<span>${item.name}</span>`
 		}
 	}
 }
@@ -263,16 +248,13 @@ export default {
 	border-radius: 4px;
 }
 
-::v-deep .geo-json {
-	.leaflet-pane {
-		svg {
-			filter: drop-shadow(1px 2px 3px #b4b2ba);
-			path {
-				fill: #eae8f0;
-				stroke: none !important;
-				fill-opacity: 1;
-			}
-		}
+::v-deep .marker-cluster,
+.marker-cluster-small {
+	background-color: rgba($color: #ff3333, $alpha: 0.7);
+
+	div {
+		background-image: url('assets/img/mixue.jpg');
+		background-size: cover;
 	}
 }
 
