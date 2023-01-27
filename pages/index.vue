@@ -5,7 +5,7 @@
 				<p>
 					You absolutely can read the plugins official docs. But, here maybe can
 					make it fast to search and develop
-					<span class="f-12"> (Based on my experience)</span>.
+					<span class="f-12"> (I hope)</span>.
 				</p>
 			</div>
 			<p class="mb-0 mt-18">Here you go:</p>

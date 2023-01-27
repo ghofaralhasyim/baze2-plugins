@@ -3,11 +3,15 @@
 		<section class="section-1 pt-32">
 			<div class="container">
 				<h1>Baze LeafletJs Openstreetmap</h1>
-				<p class="full-width">
+				<p class="full-width pb-16 header">
 					<a href="https://github.com/vue-leaflet/Vue2Leaflet"
 						>https://github.com/vue-leaflet/Vue2Leaflet</a
 					>
 				</p>
+				<div class="flex flex-row col-gap-12 mb-32 f-14">
+					<span>View other: &nbsp;</span>
+					<nuxt-link to="/leaflet/popup">Custom Popup</nuxt-link>
+				</div>
 				<h5>Installation</h5>
 				<code class="code">npm i vue2-leaflet</code>
 				<h5 class="mt-16">Config</h5>
@@ -46,7 +50,7 @@ Icon.Default.mergeOptions({
 					</code>
 				</pre>
 				<p class="mt-12">
-					<b>Note</b>: Jika maps hanya digunakan untuk satu page, tidak
+					<b>Notes</b>: Jika maps hanya digunakan untuk satu page, tidak
 					disarankan menambahkan plugin pada
 					<span class="highlight">nuxt.config.js</span>. Lakukan import langsung
 					pada page yang menggunakan maps untuk mengurangi load size.
@@ -112,7 +116,7 @@ Icon.Default.mergeOptions({
 								><LIcon
 									:icon-size="iconSize"
 									:icon-anchor="iconAnchor"
-									icon-url="assets/img/map-marker.png"
+									icon-url="/assets/img/map-marker.png"
 							/></LMarker>
 							<LGeoJson :geojson="geojson"></LGeoJson>
 						</LMap>
@@ -200,7 +204,7 @@ await this.$axios
 								><LIcon
 									:icon-size="iconSize"
 									:icon-anchor="iconAnchor"
-									icon-url="assets/img/map-marker.png"
+									icon-url="/assets/img/map-marker.png"
 							/></LMarker>
 							<LGeoJson :geojson="geojson"></LGeoJson>
 						</LMap>
@@ -216,7 +220,6 @@ export default {
 	data() {
 		return {
 			geojson: null,
-			client: false,
 			iconSize: [24, 32],
 			iconAnchor: [16, 35]
 		}
@@ -257,6 +260,9 @@ export default {
 	color: $white;
 }
 
+.header {
+	border-bottom: 1px solid rgba($color: #fff, $alpha: 0.3);
+}
 .highlight {
 	background-color: #333;
 	border-radius: 4px;
@@ -265,7 +271,6 @@ export default {
 .map-wrapper {
 	height: 500px;
 	width: 100%;
-	border: 1px solid #000;
 	padding: 16px;
 	border-radius: 8px;
 	background-color: #222222;
