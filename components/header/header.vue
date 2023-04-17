@@ -22,7 +22,7 @@ export default {
 	top: 0;
 	left: 0;
 	width: 100%;
-	background-color: $dark;
+	background-color: $white;
 	height: 60px;
 	box-shadow: 0px 3px 4px rgba($black, 0.15);
 
